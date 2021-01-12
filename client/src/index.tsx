@@ -1,10 +1,11 @@
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
+import { Listings } from './components';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <StrictMode>
-    <div>Hello, AirBnB clone!</div>
+    <Listings title='AirBnB listings' />
   </StrictMode>,
   document.getElementById('root')
 );
