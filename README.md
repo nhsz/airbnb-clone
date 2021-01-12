@@ -4,25 +4,24 @@
 
 ### Front
 
-- React
-- TypeScript
-- Hooks & Function Components
+- **React**
+  - Hooks & Function Components
+- **TypeScript**
+- **Ant Design** for components UI
 - GraphQL Apollo Client
-- Ant Design for components UI
 
 ### Back
 
-- Node + Express
-- TypeScript
-- GraphQL + Apollo Server
-- MongoDB for data persistence
-  - Atlas for db cloud hosting
+- **Server:** Node + Express
+- **TypeScript**
+- **API:** GraphQL Apollo Server
+- **DB:** MongoDB (using Atlas for cloud hosting)
 
-## Auth
+### Auth
 
 - [WIP]
 
-## Testing
+### Testing
 
 - Jest
 - React Testing Library
