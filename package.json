@@ -1,0 +1,40 @@
+{
+  "name": "airbnb-clone",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server/index.ts",
+    "build": "tsc -p ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nhsz/portfolio-airbnb-clone.git"
+  },
+  "keywords": [],
+  "author": "Nicolas Quiroz <nh.quiroz@gmail.com> (nicolasquiroz.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nhsz/portfolio-airbnb-clone/issues"
+  },
+  "homepage": "https://github.com/nhsz/portfolio-airbnb-clone#readme",
+  "dependencies": {
+    "apollo-server-express": "^2.19.1",
+    "express": "^4.17.1",
+    "graphql": "^15.4.0",
+    "mongodb": "^3.6.3"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.9",
+    "@types/mongodb": "^3.6.3",
+    "@types/node": "^14.14.16",
+    "@typescript-eslint/eslint-plugin": "^4.11.1",
+    "@typescript-eslint/parser": "^4.11.1",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.16.0",
+    "nodemon": "^2.0.6",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  }
+}
