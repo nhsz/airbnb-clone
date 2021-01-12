@@ -16,4 +16,4 @@ interface Database {
   listings: Collection<Listing>;
 }
 
-export { Database };
+export { Listing, Database };
