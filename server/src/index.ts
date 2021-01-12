@@ -3,8 +3,8 @@ require('dotenv').config();
 
 import { ApolloServer } from 'apollo-server-express';
 import express, { Application } from 'express';
-import connectDB from '../db';
-import { resolvers, typeDefs } from '../graphql';
+import connectDB from './db';
+import { resolvers, typeDefs } from './graphql';
 
 const app = express();
 const { PORT } = process.env;
