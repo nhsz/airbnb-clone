@@ -1,5 +1,5 @@
+import { useMutation, useQuery } from '@apollo/client';
 import { FC } from 'react';
-import { useMutation, useQuery } from '../../hooks';
 import { DELETE_LISTINGS, LISTINGS } from './queries';
 import { DeleteListingData, DeleteListingVariables, ListingsData } from './types';
 
@@ -9,13 +9,13 @@ interface Props {
 
 const Listings: FC<Props> = ({ title }) => {
   const { data, loading, error, refetch } = useQuery<ListingsData>(LISTINGS);
-  const [{ loading: deleteListingLoading, error: deleteListingError }, deleteListing] = useMutation<
+  const [deleteListing, { loading: deleteListingLoading, error: deleteListingError }] = useMutation<
     DeleteListingData,
     DeleteListingVariables
   >(DELETE_LISTINGS);
 
   const handleDeleteListing = async (id: string) => {
-    await deleteListing({ id });
+    await deleteListing({ variables: { id } });
 
     refetch();
   };
