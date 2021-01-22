@@ -1,10 +1,18 @@
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { Listings } from './components';
 
+const client = new ApolloClient({
+  uri: '/api',
+  cache: new InMemoryCache()
+});
+
 ReactDOM.render(
   <StrictMode>
-    <Listings title='AirBnB little clone' />
+    <ApolloProvider client={client}>
+      <Listings title='AirBnB little clone' />
+    </ApolloProvider>
   </StrictMode>,
   document.getElementById('root')
 );
