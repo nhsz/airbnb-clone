@@ -1,7 +1,11 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { FC } from 'react';
 import { DELETE_LISTINGS, LISTINGS } from './queries';
-import { DeleteListingData, DeleteListingVariables, ListingsData } from './types';
+import {
+  DeleteListing as DeleteListingData,
+  DeleteListingVariables
+} from './__generated__/DeleteListing';
+import { Listings as ListingsData } from './__generated__/Listings';
 
 interface Props {
   title: string;
