@@ -10,7 +10,7 @@ interface Error {
 const GRAPHQL_ENDPOINT = '/api';
 
 const api = {
-  fetch: async <TData = any, TVariables = any>(body: RequestBody<TVariables>) => {
+  fetch: async <TData = unknown, TVariables = unknown>(body: RequestBody<TVariables>) => {
     const res = await fetch(GRAPHQL_ENDPOINT, {
       method: 'POST',
       headers: {

@@ -1,39 +1,7 @@
 import { FC } from 'react';
-import { useQuery } from '../../hooks';
-import { api } from '../../lib/api';
+import { useMutation, useQuery } from '../../hooks';
+import { DELETE_LISTINGS, LISTINGS } from './queries';
 import { DeleteListingData, DeleteListingVariables, ListingsData } from './types';
-
-const LISTINGS = `
-  query Listings {
-    listings {
-      id
-      title
-      image
-      address
-      price
-      numberOfGuests
-      numberOfBeds
-      numberOfBaths
-      rating
-    }
-  }
-`;
-
-const DELETE_LISTINGS = `
-  mutation DeleteListing($id: ID!) {
-    deleteListing(id: $id) {
-      id
-      title
-      image
-      address
-      price
-      numberOfGuests
-      numberOfBeds
-      numberOfBaths
-      rating
-    }
-  }
-`;
 
 interface Props {
   title: string;
@@ -41,14 +9,13 @@ interface Props {
 
 const Listings: FC<Props> = ({ title }) => {
   const { data, loading, error, refetch } = useQuery<ListingsData>(LISTINGS);
+  const [{ loading: deleteListingLoading, error: deleteListingError }, deleteListing] = useMutation<
+    DeleteListingData,
+    DeleteListingVariables
+  >(DELETE_LISTINGS);
 
-  const deleteListing = async (id: string) => {
-    await api.fetch<DeleteListingData, DeleteListingVariables>({
-      query: DELETE_LISTINGS,
-      variables: {
-        id
-      }
-    });
+  const handleDeleteListing = async (id: string) => {
+    await deleteListing({ id });
 
     refetch();
   };
@@ -71,11 +38,14 @@ const Listings: FC<Props> = ({ title }) => {
         <ul>
           {listings.map(({ id, title }) => (
             <li key={id}>
-              {title} <button onClick={() => deleteListing(id)}>Delete</button>
+              {title} <button onClick={() => handleDeleteListing(id)}>Delete</button>
             </li>
           ))}
         </ul>
       )}
+
+      {deleteListingLoading ? <h4>Deletion in progress...</h4> : null}
+      {deleteListingError ? <h4>Oops, something went wrong while deleting listing.</h4> : null}
     </>
   );
 };

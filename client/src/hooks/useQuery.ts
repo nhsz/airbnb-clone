@@ -1,13 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
 import { api } from '../lib/api';
 
+// useState typings
 interface State<TData> {
   data: TData | null;
   loading: boolean;
   error: boolean;
 }
 
-function useQuery<TData = any>(query: string) {
+// Hook return typings
+interface QueryResult<TData> extends State<TData> {
+  refetch: () => void;
+}
+
+function useQuery<TData = unknown>(query: string): QueryResult<TData> {
   const [state, setState] = useState<State<TData>>({
     data: null,
     loading: false,
@@ -22,9 +28,11 @@ function useQuery<TData = any>(query: string) {
           loading: true,
           error: false
         });
+
         const { data, errors } = await api.fetch<TData>({ query });
 
         if (errors?.length) {
+          // Apollo Server returns an array of errors
           throw new Error(errors[0].message);
         }
 
