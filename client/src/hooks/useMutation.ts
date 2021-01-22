@@ -1,20 +1,12 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 import { api } from '../lib/api';
-
-// useState typings
-interface State<TData> {
-  data: TData | null;
-  loading: boolean;
-  error: boolean;
-}
-
-// Hook return typings
-type MutationTuple<TData, TVariables> = [State<TData>, (variables?: TVariables) => Promise<void>];
+import { reducer } from './helpers';
+import { MutationTuple } from './types';
 
 function useMutation<TData = unknown, TVariables = unknown>(
   query: string
 ): MutationTuple<TData, TVariables> {
-  const [state, setState] = useState<State<TData>>({
+  const [state, dispatch] = useReducer(reducer<TData>(), {
     data: null,
     loading: false,
     error: false
@@ -22,12 +14,7 @@ function useMutation<TData = unknown, TVariables = unknown>(
 
   const fetch = async (variables?: TVariables) => {
     try {
-      setState({
-        data: null,
-        loading: true,
-        error: false
-      });
-
+      dispatch({ type: 'FETCH' });
       const { data, errors } = await api.fetch<TData, TVariables>({ query, variables });
 
       if (errors?.length) {
@@ -35,17 +22,9 @@ function useMutation<TData = unknown, TVariables = unknown>(
         throw new Error(errors[0].message);
       }
 
-      setState({
-        data,
-        loading: false,
-        error: false
-      });
+      dispatch({ type: 'FETCH_SUCCESS', payload: data });
     } catch (e) {
-      setState({
-        data: null,
-        loading: false,
-        error: true
-      });
+      dispatch({ type: 'FETCH_ERROR' });
 
       throw console.error(e.message);
     }

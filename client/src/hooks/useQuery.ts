@@ -1,20 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
 import { api } from '../lib/api';
-
-// useState typings
-interface State<TData> {
-  data: TData | null;
-  loading: boolean;
-  error: boolean;
-}
-
-// Hook return typings
-interface QueryResult<TData> extends State<TData> {
-  refetch: () => void;
-}
+import { reducer } from './helpers';
+import { QueryResult } from './types';
 
 function useQuery<TData = unknown>(query: string): QueryResult<TData> {
-  const [state, setState] = useState<State<TData>>({
+  const [state, dispatch] = useReducer(reducer<TData>(), {
     data: null,
     loading: false,
     error: false
@@ -23,12 +13,7 @@ function useQuery<TData = unknown>(query: string): QueryResult<TData> {
   const fetch = useCallback(() => {
     (async function fetchAPI() {
       try {
-        setState({
-          data: null,
-          loading: true,
-          error: false
-        });
-
+        dispatch({ type: 'FETCH' });
         const { data, errors } = await api.fetch<TData>({ query });
 
         if (errors?.length) {
@@ -36,17 +21,9 @@ function useQuery<TData = unknown>(query: string): QueryResult<TData> {
           throw new Error(errors[0].message);
         }
 
-        setState({
-          data,
-          loading: false,
-          error: false
-        });
+        dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (e) {
-        setState({
-          data: null,
-          loading: false,
-          error: true
-        });
+        dispatch({ type: 'FETCH_ERROR' });
 
         throw console.error(e.message);
       }

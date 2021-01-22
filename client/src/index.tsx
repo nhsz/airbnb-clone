@@ -4,7 +4,7 @@ import { Listings } from './components';
 
 ReactDOM.render(
   <StrictMode>
-    <Listings title='AirBnB listings' />
+    <Listings title='AirBnB little clone' />
   </StrictMode>,
   document.getElementById('root')
 );
