@@ -1,4 +1,5 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { ChakraProvider } from '@chakra-ui/react';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { Listings } from './components';
@@ -11,7 +12,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <StrictMode>
     <ApolloProvider client={client}>
-      <Listings title='AirBnB little clone' />
+      <ChakraProvider>
+        <Listings title='Little Airbnb clone' />
+      </ChakraProvider>
     </ApolloProvider>
   </StrictMode>,
   document.getElementById('root')

@@ -1,4 +1,17 @@
 import { useMutation, useQuery } from '@apollo/client';
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  HStack,
+  Image,
+  Spacer,
+  Stack,
+  StackDivider,
+  Text,
+  VStack
+} from '@chakra-ui/react';
 import { FC } from 'react';
 import { DELETE_LISTINGS, LISTINGS } from './queries';
 import {
@@ -35,22 +48,69 @@ const Listings: FC<Props> = ({ title }) => {
   }
 
   return (
-    <>
-      <h2>{title}</h2>
+    <Box bg='gray.50' p={8}>
+      <Heading mb={8}>{title}</Heading>
 
-      {listings && (
-        <ul>
+      {/* {listings && (
+        <UnorderedList>
           {listings.map(({ id, title }) => (
-            <li key={id}>
+            <ListItem key={id}>
               {title} <button onClick={() => handleDeleteListing(id)}>Delete</button>
-            </li>
+            </ListItem>
           ))}
-        </ul>
-      )}
+        </UnorderedList>
+      )} */}
+
+      {/* listings {
+      id
+      title
+      image
+      address
+      price
+      numberOfGuests
+      numberOfBeds
+      numberOfBaths
+      rating
+    } */}
+
+      {/* square
+    48px */}
+
+      <VStack divider={<StackDivider borderColor='gray.200' />} spacing={4} align='stretch'>
+        {listings &&
+          listings.map(({ id, title, address, image }) => (
+            <Flex key={id} flexWrap='wrap'>
+              <HStack>
+                <Image
+                  borderRadius='sm'
+                  boxSize={{ base: '100px', sm: '128px' }}
+                  objectFit='cover'
+                  alt={title}
+                  src={image}
+                  mr={4}
+                />
+                <Stack>
+                  <Text color='gray.700' fontWeight={600}>
+                    {title}
+                  </Text>
+                  <Text color='gray.600' fontWeight={300}>
+                    {address}
+                  </Text>
+                </Stack>
+              </HStack>
+              <Spacer />
+              <HStack mt={{ base: 4, sm: 0 }}>
+                <Button colorScheme='blue' onClick={() => handleDeleteListing(id)}>
+                  Delete
+                </Button>
+              </HStack>
+            </Flex>
+          ))}
+      </VStack>
 
       {deleteListingLoading ? <h4>Deletion in progress...</h4> : null}
       {deleteListingError ? <h4>Oops, something went wrong while deleting listing.</h4> : null}
-    </>
+    </Box>
   );
 };
 

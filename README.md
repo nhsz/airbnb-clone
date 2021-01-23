@@ -7,8 +7,9 @@
 - **React**
   - Hooks & Function Components
 - **TypeScript**
-- **Ant Design** for components UI
-- GraphQL Apollo Client
+- **Chakra UI** for components UI
+- **GraphQL Apollo Client** for data fetching and caching
+- Apollo CLI for Schema and typings generation
 
 ### Back
 
