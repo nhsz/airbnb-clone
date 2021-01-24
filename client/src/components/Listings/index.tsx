@@ -1,18 +1,8 @@
 import { useMutation, useQuery } from '@apollo/client';
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  HStack,
-  Image,
-  Spacer,
-  Stack,
-  StackDivider,
-  Text,
-  VStack
-} from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, HStack, Spacer, StackDivider, VStack } from '@chakra-ui/react';
 import { FC } from 'react';
+import { ListingDescription, ListingImage, LoadingSkeleton, LoadingSpinner } from '../ui';
+import { ErrorAlert } from '../ui/ErrorAlert';
 import { DELETE_LISTINGS, LISTINGS } from './queries';
 import {
   DeleteListing as DeleteListingData,
@@ -39,64 +29,17 @@ const Listings: FC<Props> = ({ title }) => {
 
   const listings = data ? data.listings : null;
 
-  if (error) {
-    return <h2>Something went wrong. Please try again later.</h2>;
-  }
+  if (error) return <ErrorAlert message='Something went wrong. Please try again later.' />;
 
-  if (loading) {
-    return <h2>Loading...</h2>;
-  }
-
-  return (
-    <Box bg='gray.50' p={8}>
-      <Heading mb={8}>{title}</Heading>
-
-      {/* {listings && (
-        <UnorderedList>
-          {listings.map(({ id, title }) => (
-            <ListItem key={id}>
-              {title} <button onClick={() => handleDeleteListing(id)}>Delete</button>
-            </ListItem>
-          ))}
-        </UnorderedList>
-      )} */}
-
-      {/* listings {
-      id
-      title
-      image
-      address
-      price
-      numberOfGuests
-      numberOfBeds
-      numberOfBaths
-      rating
-    } */}
-
-      {/* square
-    48px */}
-
+  const listingsRender = (
+    <>
       <VStack divider={<StackDivider borderColor='gray.200' />} spacing={4} align='stretch'>
         {listings &&
           listings.map(({ id, title, address, image }) => (
             <Flex key={id} flexWrap='wrap'>
               <HStack>
-                <Image
-                  borderRadius='sm'
-                  boxSize={{ base: '100px', sm: '128px' }}
-                  objectFit='cover'
-                  alt={title}
-                  src={image}
-                  mr={4}
-                />
-                <Stack>
-                  <Text color='gray.700' fontWeight={600}>
-                    {title}
-                  </Text>
-                  <Text color='gray.600' fontWeight={300}>
-                    {address}
-                  </Text>
-                </Stack>
+                <ListingImage alt={title} src={image} />
+                <ListingDescription title={title} address={address} />
               </HStack>
               <Spacer />
               <HStack mt={{ base: 4, sm: 0 }}>
@@ -107,9 +50,17 @@ const Listings: FC<Props> = ({ title }) => {
             </Flex>
           ))}
       </VStack>
+    </>
+  );
 
-      {deleteListingLoading ? <h4>Deletion in progress...</h4> : null}
-      {deleteListingError ? <h4>Oops, something went wrong while deleting listing.</h4> : null}
+  return (
+    <Box bg='gray.50' p={8}>
+      <Heading mb={12}>{title}</Heading>
+      {loading && <LoadingSkeleton />}
+      {deleteListingLoading ? <LoadingSpinner /> : listingsRender}
+      {deleteListingError && (
+        <ErrorAlert message='Oops, something went wrong while deleting listing.' />
+      )}
     </Box>
   );
 };

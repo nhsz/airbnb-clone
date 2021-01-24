@@ -5,11 +5,12 @@
 ### Front
 
 - **React**
-  - Hooks & Function Components
+  - Function Components w/Hooks
 - **TypeScript**
 - **Chakra UI** for components UI
 - **GraphQL Apollo Client** for data fetching and caching
-- Apollo CLI for Schema and typings generation
+- **Routing** with React Router
+- **Schema and typings generation** with Apollo CLI codegen tools
 
 ### Back
 
@@ -18,11 +19,21 @@
 - **API:** GraphQL Apollo Server
 - **DB:** MongoDB (using Atlas for cloud hosting)
 
+### Third-party APIs
+
+- Google's Geocoding API
+- Stripe
+
 ### Auth
 
-- [WIP]
+- User authentication with Google Sign-In and OAuth 2.0
 
 ### Testing
 
 - Jest
 - React Testing Library
+
+### Hosting
+
+- **Images**: Cloudinary
+- **App**: Heroku
