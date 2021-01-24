@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon src/index.ts",
     "build": "tsc -p ./",
-    "db:seed": "ts-node temp/seed.ts"
+    "db:seed": "ts-node src/db/seed.ts"
   },
   "repository": {
     "type": "git",
