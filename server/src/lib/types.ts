@@ -38,7 +38,7 @@ interface Listing {
   title: string;
   description: string;
   image: string;
-  hostID: string; // 1-to-1 relationship with a user (a listing can only have 1 host)
+  hostId: string; // 1-to-1 relationship with a user (a listing can only have 1 host)
   type: ListingType;
   address: string;
   country: string;
@@ -58,7 +58,7 @@ interface User {
   name: string;
   avatar: string;
   email: string;
-  walletID?: string;
+  walletId?: string;
   income: number;
   bookings: ObjectId[]; // 1-to-many relationship with a booking inside the `bookings` collection
   listings: ObjectId[]; // 1-to-many relationship with a listing inside the `listings` collection (if user is a Host)
@@ -66,8 +66,8 @@ interface User {
 
 interface Booking {
   _id: ObjectId;
-  listingID: ObjectId; // 1-to-1 relationship with a listing
-  tenantID: string; // 1-to-1 relationship with a user
+  listingId: ObjectId; // 1-to-1 relationship with a listing
+  tenantId: string; // 1-to-1 relationship with a user
   checkIn: Date; // string?
   checkOut: Date; // string?
 }

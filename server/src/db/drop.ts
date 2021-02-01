@@ -10,9 +10,9 @@ const drop = async () => {
 
     const db = await connectDB();
     // get collections to check if they're empty before attempting deletion
-    const bookings = await db.bookings.find({}).toArray();
-    const listings = await db.listings.find({}).toArray();
-    const users = await db.users.find({}).toArray();
+    const bookings = await db.bookings.find().toArray();
+    const listings = await db.listings.find().toArray();
+    const users = await db.users.find().toArray();
 
     if (listings.length) {
       console.log('[drop]: dropping listings');
