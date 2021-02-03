@@ -1,5 +1,13 @@
 import { Collection, ObjectId } from 'mongodb';
 
+interface Viewer {
+  _id?: string;
+  token?: string;
+  avatar?: string;
+  walletId?: string;
+  didRequest: boolean;
+}
+
 type ListingType = 'Apartment' | 'House';
 
 interface BookingsIndexMonth {
@@ -78,4 +86,4 @@ interface Database {
   users: Collection<User>;
 }
 
-export { Booking, Database, Listing, User };
+export { Booking, Database, Listing, User, Viewer };
