@@ -7,6 +7,7 @@ import { LogIn as LogInData, LogInVariables, LOG_IN } from '../../lib/graphql/mu
 import { AUTH_URL } from '../../lib/graphql/queries';
 import { AuthUrl as AuthUrlData } from '../../lib/graphql/queries/';
 import { LogIn_logIn as Viewer } from '../../lib/types';
+import { displayErrorNotification, displaySuccessNotification } from '../../lib/utils';
 
 interface Props {
   setViewer: (viewer: Viewer) => void;
@@ -22,13 +23,7 @@ const Login = ({ setViewer }: Props) => {
     onCompleted: data => {
       if (data && data.logIn) {
         setViewer(data.logIn);
-        toast({
-          position: 'top-right',
-          title: "You've successfully logged in!",
-          status: 'success',
-          duration: 4000,
-          isClosable: true
-        });
+        displaySuccessNotification({ toast, title: "You've successfully logged in!" });
       }
     }
   });
@@ -54,25 +49,18 @@ const Login = ({ setViewer }: Props) => {
       window.location.href = data.authUrl;
     } catch (e) {
       console.error(e.message);
-
-      toast({
-        position: 'top-right',
-        title: 'Error while trying to log in. Please try again later.',
-        status: 'error',
-        duration: 4000,
-        isClosable: true
+      displayErrorNotification({
+        toast,
+        title: 'Error while trying to log in. Please try again later.'
       });
     }
   };
 
   if (logInError) {
-    toast({
-      position: 'top-right',
+    displayErrorNotification({
+      toast,
       title: 'Oops, something went wrong.',
-      description: 'Please check your connection and/or try again later.',
-      status: 'error',
-      duration: 4000,
-      isClosable: true
+      description: 'Please check your connection and try again later.'
     });
   }
 
