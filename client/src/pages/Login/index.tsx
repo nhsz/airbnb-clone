@@ -40,6 +40,7 @@ const Login = () => {
               colorScheme='blue'
               border='1px'
               borderColor='blue.500'
+              _hover={{ backgroundColor: 'blue.600', borderColor: 'blue.600' }}
               color='#fafafa'
               p={0}
               borderRadius={2}
