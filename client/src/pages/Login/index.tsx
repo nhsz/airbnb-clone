@@ -1,18 +1,92 @@
-import {
-  Box as Layout,
-  Button,
-  Heading,
-  Image,
-  Stack as Card,
-  Stack,
-  Text
-} from '@chakra-ui/react';
-import googleLogo from './assets/google_logo.jpg';
+import { useApolloClient, useMutation } from '@apollo/client';
+import { Box as Layout, Spinner, Stack as Card, Stack, useToast } from '@chakra-ui/react';
+import { useEffect, useRef } from 'react';
+import { Redirect } from 'react-router-dom';
+import { LoginButton, LoginFooter, LoginHeader } from '../../components/ui/';
+import { LogIn as LogInData, LogInVariables, LOG_IN } from '../../lib/graphql/mutations';
+import { AUTH_URL } from '../../lib/graphql/queries';
+import { AuthUrl as AuthUrlData } from '../../lib/graphql/queries/';
+import { LogIn_logIn as Viewer } from '../../lib/types';
 
-const Login = () => {
+interface Props {
+  setViewer: (viewer: Viewer) => void;
+}
+
+const Login = ({ setViewer }: Props) => {
+  const client = useApolloClient();
+  const toast = useToast();
+  const [logIn, { data: logInData, loading: logInLoading, error: logInError }] = useMutation<
+    LogInData,
+    LogInVariables
+  >(LOG_IN, {
+    onCompleted: data => {
+      if (data && data.logIn) {
+        setViewer(data.logIn);
+        toast({
+          position: 'top-right',
+          title: "You've successfully logged in!",
+          status: 'success',
+          duration: 4000,
+          isClosable: true
+        });
+      }
+    }
+  });
+  const logInRef = useRef(logIn);
+
+  useEffect(() => {
+    // get auth code from url
+    const code = new URL(window.location.href).searchParams.get('code');
+
+    if (code) {
+      // execute mutation to get viewer profile data
+      logInRef.current({
+        variables: { input: { code } }
+      });
+    }
+  }, []);
+
+  const handleAuthorize = async () => {
+    try {
+      const { data } = await client.query<AuthUrlData>({
+        query: AUTH_URL
+      });
+      window.location.href = data.authUrl;
+    } catch (e) {
+      console.error(e.message);
+
+      toast({
+        position: 'top-right',
+        title: 'Error while trying to log in. Please try again later.',
+        status: 'error',
+        duration: 4000,
+        isClosable: true
+      });
+    }
+  };
+
+  if (logInError) {
+    toast({
+      position: 'top-right',
+      title: 'Oops, something went wrong.',
+      description: 'Please check your connection and/or try again later.',
+      status: 'error',
+      duration: 4000,
+      isClosable: true
+    });
+  }
+
+  if (logInData && logInData.logIn) {
+    const { id: viewerId } = logInData.logIn;
+
+    return <Redirect to={`/user/${viewerId}`} />;
+  }
+
   return (
-    <div>
-      <Layout padding={4} d='flex' justifyContent='center' alignItems='center' h='100vh'>
+    <Layout padding={4} d='flex' justifyContent='center' alignItems='center' h='100vh'>
+      {logInLoading ? (
+        <Spinner />
+      ) : (
         <Card
           maxWidth={640}
           p={12}
@@ -22,58 +96,19 @@ const Login = () => {
           boxShadow='xs'
           borderRadius={2}
         >
-          <Stack mb={12}>
-            <Heading mb={2}>
-              <Stack textAlign='center' mb={4}>
-                <span role='img' aria-label='wave'>
-                  👋
-                </span>
-              </Stack>
-              Log in to <code>airbnb-clone</code>
-            </Heading>
-            <Text>Sign in with Google to start booking available rentals.</Text>
-          </Stack>
+          <LoginHeader description='Sign in with Google to start booking available rentals.' />
 
           <Stack h='43px' mb={12}>
-            <Button
-              d='flex'
-              colorScheme='blue'
-              border='1px'
-              borderColor='blue.500'
-              _hover={{ backgroundColor: 'blue.600', borderColor: 'blue.600' }}
-              color='#fafafa'
-              p={0}
-              borderRadius={2}
-              boxShadow='sm'
-            >
-              <Image d='inline-block' src={googleLogo} h='100%' borderRadius={1} />
-              <Text p={4}>Sign in with Google</Text>
-            </Button>
+            <LoginButton handleAuthorize={handleAuthorize} />
           </Stack>
 
           <Stack>
-            <Text fontSize='sm' color='gray.500'>
-              <strong>Note:</strong> By signing in, you'll be redirected to the Google consent form
-              to sign in with your Google account.
-            </Text>
+            <LoginFooter />
           </Stack>
         </Card>
-      </Layout>
-    </div>
+      )}
+    </Layout>
   );
 };
 
 export { Login };
-
-// .log-in-card__google-button {
-//   margin: 40px auto;
-//   border-radius: 2px;
-//   background-color: #4285f4;
-//   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.24), 0 0 1px 0 rgba(0, 0, 0, 0.12);
-//   border: none;
-//   display: flex;
-//   align-items: center;
-//   padding: 1px;
-//   color: #fff;
-//   cursor: pointer;
-// }

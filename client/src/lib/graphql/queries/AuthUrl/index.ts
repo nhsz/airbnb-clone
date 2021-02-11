@@ -6,4 +6,5 @@ const AUTH_URL = gql`
   }
 `;
 
+export * from './__generated__/AuthUrl';
 export { AUTH_URL };
