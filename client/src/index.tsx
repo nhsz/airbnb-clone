@@ -3,8 +3,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { FC, StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import { Listings } from './components';
-import { Home, Host, Listing, Listings, NotFound, User } from './pages';
+import { Home, Host, Listing, Listings, Login, NotFound, User } from './pages';
 
 // import './styles/index.css';
 
@@ -21,6 +20,7 @@ const App: FC = () => {
         <Route exact path='/host' component={Host} />
         <Route exact path='/listings/:location?' component={Listings} />
         <Route exact path='/listing/:id' component={Listing} />
+        <Route exact path='/login' component={Login} />
         <Route exact path='/user/:id' component={User} />
         <Route component={NotFound} />
       </Switch>
@@ -32,7 +32,6 @@ ReactDOM.render(
   <StrictMode>
     <ApolloProvider client={client}>
       <ChakraProvider>
-        {/* <Listings title='Little Airbnb clone' /> */}
         <App />
       </ChakraProvider>
     </ApolloProvider>

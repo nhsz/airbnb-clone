@@ -480,7 +480,8 @@
 .listings__title.ant-typography {
   color: #1d226c;
 }
-.log-in {
+
+/* .log-in {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -519,7 +520,8 @@
   text-align: left;
   white-space: nowrap;
   padding: 10px;
-}
+} */
+
 .not-found {
   display: flex;
   flex-direction: column;
