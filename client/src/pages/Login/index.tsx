@@ -71,18 +71,26 @@ const Login = ({ setViewer }: Props) => {
   }
 
   return (
-    <Layout padding={4} d='flex' justifyContent='center' alignItems='center' h='100vh'>
+    <Layout
+      padding={4}
+      d='flex'
+      justifyContent='center'
+      alignItems='center'
+      h='100vh'
+      style={{ marginTop: '-5.5rem' }}
+    >
       {logInLoading ? (
         <Spinner />
       ) : (
         <Card
           maxWidth={640}
-          p={12}
+          p={10}
           d='flex'
           justifyContent='center'
           alignItems='center'
           boxShadow='xs'
           borderRadius={2}
+          mt={{ base: 10, sm: 0 }}
         >
           <LoginHeader description='Sign in with Google to start booking available rentals.' />
 

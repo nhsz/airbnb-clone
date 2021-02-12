@@ -1,12 +1,12 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, Stack } from '@chakra-ui/react';
 import { FC, StrictMode, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Header } from './components';
 import { LogIn_logIn as Viewer } from './lib/types';
 import { Home, Host, Listing, Listings, Login, NotFound, User } from './pages';
-
-// import './styles/index.css';
+import './styles/index.css';
 
 const client = new ApolloClient({
   uri: '/api',
@@ -25,10 +25,11 @@ const initialViewer: Viewer = {
 const App: FC = () => {
   const [viewer, setViewer] = useState<Viewer>(initialViewer);
 
-  console.log(viewer);
-
   return (
     <Router>
+      <Stack mb={16}>
+        <Header viewer={viewer} setViewer={setViewer} />
+      </Stack>
       <Switch>
         <Route exact path='/' component={Home} />
         <Route exact path='/host' component={Host} />

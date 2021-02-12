@@ -1,6 +1,12 @@
-@import url(https://fonts.googleapis.com/css?family=Sacramento);
+.fullscreen {
+  margin-top: -5.5rem;
+  height: 100vh;
+  background-image: url('https://a0.muscache.com/im/pictures/f0483d09-7d13-42d0-a40a-46d585c42220.jpg?im_w=1920');
+  background-size: cover;
+  background-position: top;
+}
 
-.menu {
+/* .menu {
   width: 100%;
   padding: 0 20px;
   line-height: 63px;
@@ -479,7 +485,7 @@
 }
 .listings__title.ant-typography {
   color: #1d226c;
-}
+} */
 
 /* .log-in {
   display: flex;
@@ -521,7 +527,7 @@
   white-space: nowrap;
   padding: 10px;
 } */
-
+/*
 .not-found {
   display: flex;
   flex-direction: column;
@@ -653,4 +659,4 @@ html {
   .app__affix-footer {
     display: none;
   }
-}
+} */

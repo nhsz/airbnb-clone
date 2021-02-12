@@ -12,4 +12,5 @@ const LOG_OUT = gql`
   }
 `;
 
+export * from './__generated__/LogOut';
 export { LOG_OUT };
