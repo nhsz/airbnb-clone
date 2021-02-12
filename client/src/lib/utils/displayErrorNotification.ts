@@ -10,7 +10,6 @@ interface Params {
 
 const displayErrorNotification = ({ toast, title, description }: Params) => {
   toast({
-    position: 'top-right',
     title,
     description,
     status: 'error',

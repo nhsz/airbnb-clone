@@ -10,7 +10,6 @@ interface Params {
 
 const displaySuccessNotification = ({ toast, title, description }: Params) => {
   toast({
-    position: 'top-right',
     title,
     description,
     status: 'success',

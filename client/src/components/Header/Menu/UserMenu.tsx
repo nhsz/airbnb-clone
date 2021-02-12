@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { Avatar, Button, Menu, MenuButton, MenuItem, MenuList, useToast } from '@chakra-ui/react';
 import { HiOutlineLogout, HiOutlineUser } from 'react-icons/hi';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { LogOut as LogOutData, LOG_OUT } from '../../../lib/graphql/mutations';
 import { LogIn_logIn as Viewer } from '../../../lib/types';
 import { displayErrorNotification, displaySuccessNotification } from '../../../lib/utils';
@@ -14,11 +14,13 @@ interface Props {
 
 const UserMenu = ({ id, avatar, setViewer }: Props) => {
   const toast = useToast();
+  const history = useHistory();
   const [logOut] = useMutation<LogOutData>(LOG_OUT, {
     onCompleted: data => {
       if (data && data.logOut) {
         setViewer(data.logOut);
         displaySuccessNotification({ toast, title: "You've successfully logged out!" });
+        history.push('/');
       }
     },
     onError: () =>
