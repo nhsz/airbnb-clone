@@ -1,10 +1,12 @@
+import { Response } from 'express';
+import { cookieOptions, getUserInfo } from '.';
 import { Database, User } from '../../../../lib/types';
-import { getUserInfo } from './getUserInfo';
 
-const loggedInViaGoogle = async (
+const logInViaGoogle = async (
   code: string,
   token: string,
-  db: Database
+  db: Database,
+  res: Response
 ): Promise<User | undefined> => {
   const { userId, userName, userAvatar, userEmail } = await getUserInfo(code);
 
@@ -41,10 +43,16 @@ const loggedInViaGoogle = async (
       listings: []
     });
 
+    const ONE_YEAR_EXP = 1000 * 60 * 60 * 24 * 365;
+    res.cookie('viewer', userId, {
+      ...cookieOptions,
+      maxAge: ONE_YEAR_EXP
+    });
+
     viewer = insertResult.ops[0];
   }
 
   return viewer;
 };
 
-export { loggedInViaGoogle };
+export { logInViaGoogle };

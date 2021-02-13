@@ -1,9 +1,10 @@
 import { IResolvers } from 'apollo-server-express';
 import crypto from 'crypto';
+import { Request, Response } from 'express';
 import { GoogleOAuth } from '../../../lib/api';
 import { Database, User, Viewer } from '../../../lib/types';
 import { LogInArgs } from './types';
-import { loggedInViaGoogle } from './utils/loggedInViaGoogle';
+import { cookieOptions, logInViaCookie, logInViaGoogle } from './utils';
 
 const viewerResolvers: IResolvers = {
   Viewer: {
@@ -23,7 +24,7 @@ const viewerResolvers: IResolvers = {
     logIn: async (
       _root: undefined,
       { input }: LogInArgs,
-      { db }: { db: Database }
+      { db, req, res }: { db: Database; req: Request; res: Response }
     ): Promise<Viewer> => {
       try {
         const code = input ? input.code : null;
@@ -34,8 +35,8 @@ const viewerResolvers: IResolvers = {
         */
         const sessionToken = crypto.randomBytes(16).toString('hex');
         const viewer: User | undefined = code
-          ? await loggedInViaGoogle(code, sessionToken, db)
-          : undefined;
+          ? await logInViaGoogle(code, sessionToken, db, res)
+          : await logInViaCookie(sessionToken, db, req, res);
 
         // sent client the info that a request has been made but no user info is available
         if (!viewer) return { didRequest: true };
@@ -52,8 +53,13 @@ const viewerResolvers: IResolvers = {
         throw new Error(`Failed to log in: ${e.message}`);
       }
     },
-    logOut: (): Viewer => {
+    logOut: (
+      _root: undefined,
+      _args: Record<string, unknown>,
+      { res }: { res: Response }
+    ): Viewer => {
       try {
+        res.clearCookie('viewer', cookieOptions);
         return { didRequest: true };
       } catch (e) {
         throw new Error(`Error during log out: ${e.message}`);
