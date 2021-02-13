@@ -3,10 +3,16 @@ require('dotenv').config();
 
 import { ApolloServer } from 'apollo-server-express';
 import express, { Application } from 'express';
+import helmet from 'helmet';
 import connectDB from './db';
 import { resolvers, typeDefs } from './graphql';
 
 const app = express();
+app.use(
+  helmet({
+    contentSecurityPolicy: false
+  })
+);
 const { PORT } = process.env;
 
 const run = async (app: Application) => {
