@@ -43,14 +43,14 @@ const logInViaGoogle = async (
       listings: []
     });
 
-    const ONE_YEAR_EXP = 1000 * 60 * 60 * 24 * 365;
-    res.cookie('viewer', userId, {
-      ...cookieOptions,
-      maxAge: ONE_YEAR_EXP
-    });
-
     viewer = insertResult.ops[0];
   }
+
+  const ONE_YEAR_EXP = 1000 * 60 * 60 * 24 * 365;
+  res.cookie('viewer', userId, {
+    ...cookieOptions,
+    maxAge: ONE_YEAR_EXP
+  });
 
   return viewer;
 };

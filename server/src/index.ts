@@ -9,18 +9,20 @@ import connectDB from './db';
 import { resolvers, typeDefs } from './graphql';
 
 const app = express();
+
+const { PORT } = process.env;
+const { SECRET } = process.env;
+
 app.use(
+  // GraphQL Playground needs this option disabled to work
   helmet({
     contentSecurityPolicy: false
   })
 );
-const { PORT } = process.env;
-const { SECRET } = process.env;
+app.use(cookieParser(SECRET));
 
 const run = async (app: Application) => {
   const db = await connectDB();
-
-  app.use(cookieParser(SECRET));
 
   // Apollo Server setup
   const server = new ApolloServer({

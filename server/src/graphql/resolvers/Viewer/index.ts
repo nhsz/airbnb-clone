@@ -34,6 +34,7 @@ const viewerResolvers: IResolvers = {
           which we'll use to authorize that the request is coming from a valid viewer to prevent CSRF attacks.
         */
         const sessionToken = crypto.randomBytes(16).toString('hex');
+
         const viewer: User | undefined = code
           ? await logInViaGoogle(code, sessionToken, db, res)
           : await logInViaCookie(sessionToken, db, req, res);
@@ -41,12 +42,11 @@ const viewerResolvers: IResolvers = {
         // sent client the info that a request has been made but no user info is available
         if (!viewer) return { didRequest: true };
 
-        const { _id, token, avatar, walletId } = viewer;
         return {
-          _id,
-          token,
-          avatar,
-          walletId,
+          _id: viewer._id,
+          token: viewer.token,
+          avatar: viewer.avatar,
+          walletId: viewer.walletId,
           didRequest: true
         };
       } catch (e) {
