@@ -7,7 +7,7 @@ interface UserInfo {
   userEmail: string | null;
 }
 
-async function getUserInfo(code: string): Promise<UserInfo> {
+const getUserInfo = async (code: string): Promise<UserInfo> => {
   const { user } = await GoogleOAuth.logIn(code);
 
   if (!user) throw new Error('An error occured while trying to login with Google');
@@ -31,6 +31,6 @@ async function getUserInfo(code: string): Promise<UserInfo> {
   const userEmail = userEmailsList && userEmailsList[0].value ? userEmailsList[0].value : null;
 
   return { userId, userName, userAvatar, userEmail };
-}
+};
 
 export { getUserInfo };
