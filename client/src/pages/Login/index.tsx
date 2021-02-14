@@ -80,7 +80,7 @@ const Login = ({ setViewer }: Props) => {
       style={{ marginTop: '-5.5rem' }}
     >
       {logInLoading ? (
-        <Spinner />
+        <Spinner label='Logging in...' size='xl' color='#FF5A6B' thickness='4px' />
       ) : (
         <Card
           maxWidth={640}
