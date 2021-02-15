@@ -1,11 +1,12 @@
 import { Button, Image, Text } from '@chakra-ui/react';
-import googleLogo from '../../../pages/Login/assets/google_logo.jpg';
+import { FC } from 'react';
+import googleLogo from '../../../pages/Login/assets/google_logo.svg';
 
 interface Props {
   handleAuthorize: () => Promise<void>;
 }
 
-const LoginButton = ({ handleAuthorize }: Props) => {
+const LoginButton: FC<Props> = ({ handleAuthorize }) => {
   return (
     <Button
       d='flex'
@@ -19,7 +20,14 @@ const LoginButton = ({ handleAuthorize }: Props) => {
       boxShadow='sm'
       onClick={handleAuthorize}
     >
-      <Image d='inline-block' src={googleLogo} h='100%' borderRadius={1} />
+      <Image
+        d='inline-block'
+        src={googleLogo}
+        h='100%'
+        borderRadius={1}
+        p={2}
+        backgroundColor='#fff'
+      />
       <Text p={4}>Sign in with Google</Text>
     </Button>
   );

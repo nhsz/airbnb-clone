@@ -1,4 +1,5 @@
 import { Button, Flex, Icon, Stack, Text } from '@chakra-ui/react';
+import { FC } from 'react';
 import { HiOutlineHome } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { LogIn_logIn as Viewer } from '../../lib/types';
@@ -9,7 +10,7 @@ interface Props {
   setViewer: (viewer: Viewer) => void;
 }
 
-const Header = ({ viewer, setViewer }: Props) => {
+const Header: FC<Props> = ({ viewer, setViewer }) => {
   return (
     <Flex
       w='100%'

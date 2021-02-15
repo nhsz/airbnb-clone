@@ -14,8 +14,8 @@ import { Header, HeaderSkeleton } from './components';
 import { LogIn as LogInData, LogInVariables, LOG_IN } from './lib/graphql/mutations';
 import { LogIn_logIn as Viewer } from './lib/types';
 import { displayErrorNotification } from './lib/utils';
-import { Home, HomeSkeleton, Host, Listing, Listings, Login, NotFound, User } from './pages';
-import './styles/index.css';
+import { Home, Host, Listing, Listings, Login, NotFound, User } from './pages';
+// import './styles/index.css';
 
 const httpLink = createHttpLink({
   uri: '/api'
@@ -71,6 +71,9 @@ const App: FC = () => {
     logInRef.current();
   }, []);
 
+  const loading = !viewer.didRequest && !error;
+  const loadedWithoutErrors = viewer.didRequest && !error;
+
   return (
     <Router>
       {error &&
@@ -80,11 +83,11 @@ const App: FC = () => {
           description: 'Please try again later.'
         })}
       <Stack mb={16}>
-        {!viewer.didRequest && !error && <HeaderSkeleton />}
-        {viewer.didRequest && !error && <Header viewer={viewer} setViewer={setViewer} />}
+        {loading && <HeaderSkeleton />}
+        {loadedWithoutErrors && <Header viewer={viewer} setViewer={setViewer} />}
       </Stack>
       <Switch>
-        <Route exact path='/' component={!viewer.didRequest && !error ? HomeSkeleton : Home} />
+        <Route exact path='/' render={() => <Home loading={loading} />} />
         <Route exact path='/host' component={Host} />
         <Route exact path='/listings/:location?' component={Listings} />
         <Route exact path='/listing/:id' component={Listing} />

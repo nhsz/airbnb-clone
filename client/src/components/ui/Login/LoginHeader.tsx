@@ -1,14 +1,15 @@
 import { Heading, Stack, Text } from '@chakra-ui/react';
+import { FC } from 'react';
 
 interface Props {
   description: string;
 }
 
-const LoginHeader = ({ description }: Props) => {
+const LoginHeader: FC<Props> = ({ description }: Props) => {
   return (
     <Stack mb={12}>
       <Heading mb={2}>
-        <Stack textAlign='center' mb={4}>
+        <Stack mb={4} textAlign='center'>
           <span role='img' aria-label='wave'>
             👋
           </span>

@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { Avatar, Button, Menu, MenuButton, MenuItem, MenuList, useToast } from '@chakra-ui/react';
+import { FC } from 'react';
 import { HiOutlineLogout, HiOutlineUser } from 'react-icons/hi';
 import { Link, useHistory } from 'react-router-dom';
 import { LogOut as LogOutData, LOG_OUT } from '../../../lib/graphql/mutations';
@@ -12,7 +13,7 @@ interface Props {
   setViewer: (viewer: Viewer) => void;
 }
 
-const UserMenu = ({ id, avatar, setViewer }: Props) => {
+const UserMenu: FC<Props> = ({ id, avatar, setViewer }) => {
   const toast = useToast();
   const history = useHistory();
   const [logOut] = useMutation<LogOutData>(LOG_OUT, {
