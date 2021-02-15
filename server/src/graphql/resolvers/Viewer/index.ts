@@ -42,11 +42,12 @@ const viewerResolvers: IResolvers = {
         // sent client the info that a request has been made but no user info is available
         if (!viewer) return { didRequest: true };
 
+        const { _id, token, avatar, walletId } = viewer;
         return {
-          _id: viewer._id,
-          token: viewer.token,
-          avatar: viewer.avatar,
-          walletId: viewer.walletId,
+          _id,
+          token,
+          avatar,
+          walletId,
           didRequest: true
         };
       } catch (e) {

@@ -19,6 +19,7 @@ const UserMenu = ({ id, avatar, setViewer }: Props) => {
     onCompleted: data => {
       if (data && data.logOut) {
         setViewer(data.logOut);
+        sessionStorage.removeItem('token');
         displaySuccessNotification({ toast, title: "You've successfully logged out!" });
         history.push('/');
       }

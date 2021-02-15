@@ -1,16 +1,39 @@
-import { ApolloClient, ApolloProvider, InMemoryCache, useMutation } from '@apollo/client';
-import { ChakraProvider, Stack } from '@chakra-ui/react';
+import {
+  ApolloClient,
+  ApolloProvider,
+  createHttpLink,
+  InMemoryCache,
+  useMutation
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import { ChakraProvider, Stack, useToast } from '@chakra-ui/react';
 import { FC, StrictMode, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Header, HeaderSkeleton } from './components';
 import { LogIn as LogInData, LogInVariables, LOG_IN } from './lib/graphql/mutations';
 import { LogIn_logIn as Viewer } from './lib/types';
+import { displayErrorNotification } from './lib/utils';
 import { Home, HomeSkeleton, Host, Listing, Listings, Login, NotFound, User } from './pages';
 import './styles/index.css';
 
+const httpLink = createHttpLink({
+  uri: '/api'
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from session storage if it exists
+  const token = sessionStorage.getItem('token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      'X-CSRF-TOKEN': token ? token : ''
+    }
+  };
+});
+
 const client = new ApolloClient({
-  uri: '/api',
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache()
 });
 
@@ -24,11 +47,21 @@ const initialViewer: Viewer = {
 };
 
 const App: FC = () => {
+  const toast = useToast();
   const [viewer, setViewer] = useState<Viewer>(initialViewer);
-  const [logIn, { loading, error }] = useMutation<LogInData, LogInVariables>(LOG_IN, {
+  const [logIn, { error }] = useMutation<LogInData, LogInVariables>(LOG_IN, {
     onCompleted: data => {
       if (data && data.logIn) {
         setViewer(data.logIn);
+
+        const { token } = data.logIn;
+        if (token) {
+          // successfully log-in with a cookie,set token on session storage
+          sessionStorage.setItem('token', token);
+        } else {
+          // unsuccessful login => remove token from session storage
+          sessionStorage.removeItem('token');
+        }
       }
     }
   });
@@ -38,12 +71,14 @@ const App: FC = () => {
     logInRef.current();
   }, []);
 
-  // const logInErrorBannerElement = error ? (
-  //   <ErrorBanner description="We weren't able to verify if you were logged in. Please try again later!" />
-  // ) : null;
-
   return (
     <Router>
+      {error &&
+        displayErrorNotification({
+          toast,
+          title: "Oops! We weren't able to verify you already log in.",
+          description: 'Please try again later.'
+        })}
       <Stack mb={16}>
         {!viewer.didRequest && !error && <HeaderSkeleton />}
         {viewer.didRequest && !error && <Header viewer={viewer} setViewer={setViewer} />}

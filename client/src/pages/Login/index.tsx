@@ -21,8 +21,11 @@ const Login = ({ setViewer }: Props) => {
     LogInVariables
   >(LOG_IN, {
     onCompleted: data => {
-      if (data && data.logIn) {
+      const { token } = data.logIn;
+
+      if (data && data.logIn && token) {
         setViewer(data.logIn);
+        sessionStorage.setItem('token', token);
         displaySuccessNotification({ toast, title: "You've successfully logged in!" });
       }
     }
