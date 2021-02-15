@@ -9,13 +9,62 @@ const typeDefs = gql`
     didRequest: Boolean!
   }
 
+  type Bookings {
+    total: Int!
+    result: [Booking!]!
+  }
+
+  type Listings {
+    total: Int!
+    result: [Listings!]!
+  }
+
+  type Booking {
+    id: ID!
+    listing: Listing!
+    tenant: User!
+    checkIn: String!
+    checkOut: String!
+  }
+
+  union ListingType = Apartment | House
+
+  type Listing {
+    id: ID!
+    title: String!
+    description: String!
+    image: String!
+    host: User!
+    type: ListingType!
+    address: String!
+    city: String!
+    bookings(limit: Int!, page: Int!)
+    bookingsIndex: String!
+    price: Int!
+    numberOfGuests: Int!
+    numberOfBeds: Int!
+    numberOfBaths: Int!
+    rating: Int!
+  }
+
+  type User {
+    id: ID!
+    name: String!
+    avatar: String!
+    email: String!
+    hasWallet: Boolean!
+    income: Int
+    bookings(limit: Int!, page: Int!): Bookings
+    listings(limit: Int!, page: Int!): Listings!
+  }
+
   input LogInInput {
     code: String!
   }
 
   type Query {
     authUrl: String!
-    user: String!
+    user(id: ID!): User!
   }
 
   type Mutation {

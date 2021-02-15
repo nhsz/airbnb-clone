@@ -46,7 +46,7 @@ interface Listing {
   title: string;
   description: string;
   image: string;
-  hostId: string; // 1-to-1 relationship with a user (a listing can only have 1 host)
+  host: string; // 1-to-1 relationship with a user (a listing can only have 1 host)
   type: ListingType;
   address: string;
   country: string;
@@ -74,10 +74,10 @@ interface User {
 
 interface Booking {
   _id: ObjectId;
-  listingId: ObjectId; // 1-to-1 relationship with a listing
-  tenantId: string; // 1-to-1 relationship with a user
-  checkIn: Date; // string?
-  checkOut: Date; // string?
+  listing: ObjectId; // 1-to-1 relationship with a listing
+  tenant: string; // 1-to-1 relationship with a user
+  checkIn: string;
+  checkOut: string;
 }
 
 interface Database {
