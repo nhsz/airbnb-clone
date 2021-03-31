@@ -9,9 +9,27 @@ const typeDefs = gql`
     didRequest: Boolean!
   }
 
-  type Bookings {
-    total: Int!
-    result: [Booking!]!
+  enum ListingType {
+    APARTMENT
+    HOUSE
+  }
+
+  type Listing {
+    id: ID!
+    title: String!
+    description: String!
+    image: String!
+    host: User!
+    type: ListingType!
+    address: String!
+    city: String!
+    # bookings(limit: Int!, page: Int!)
+    bookingsIndex: String!
+    price: Int!
+    numberOfGuests: Int!
+    numberOfBeds: Int!
+    numberOfBaths: Int!
+    rating: Int!
   }
 
   type Listings {
@@ -27,24 +45,9 @@ const typeDefs = gql`
     checkOut: String!
   }
 
-  union ListingType = Apartment | House
-
-  type Listing {
-    id: ID!
-    title: String!
-    description: String!
-    image: String!
-    host: User!
-    type: ListingType!
-    address: String!
-    city: String!
-    bookings(limit: Int!, page: Int!)
-    bookingsIndex: String!
-    price: Int!
-    numberOfGuests: Int!
-    numberOfBeds: Int!
-    numberOfBaths: Int!
-    rating: Int!
+  type Bookings {
+    total: Int!
+    result: [Booking!]!
   }
 
   type User {
