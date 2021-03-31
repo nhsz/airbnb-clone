@@ -70,6 +70,7 @@ interface User {
   income: number;
   bookings: ObjectId[]; // 1-to-many relationship with a booking inside the `bookings` collection
   listings: ObjectId[]; // 1-to-many relationship with a listing inside the `listings` collection (if user is a Host)
+  authorized?: boolean;
 }
 
 interface Booking {
