@@ -2,7 +2,13 @@ import { IResolvers } from 'apollo-server-express';
 import { Request } from 'express';
 import { Database, User } from '../../../lib/types';
 import { authorize } from '../Viewer/utils';
-import { UserArgs } from './types';
+import {
+  UserArgs,
+  UserBookingsArgs,
+  UserBookingsData,
+  UserListingsArgs,
+  UserListingsData
+} from './types';
 
 const userResolvers: IResolvers = {
   Query: {
@@ -27,11 +33,67 @@ const userResolvers: IResolvers = {
     }
   },
   User: {
-    id: () => {},
-    hasWallet: () => {},
-    income: () => {},
-    bookings: () => {},
-    listings: () => {}
+    id: (user: User) => user._id,
+    hasWallet: (user: User) => Boolean(user.walletId),
+    income: (user: User): number | null => {
+      return user.authorized ? user.income : null;
+    },
+    bookings: async (
+      user: User,
+      { limit, page }: UserBookingsArgs,
+      { db }: { db: Database }
+    ): Promise<UserBookingsData | null> => {
+      try {
+        if (!user.authorized) return null;
+
+        const data: UserBookingsData = {
+          total: 0,
+          results: []
+        };
+
+        let cursor = await db.bookings.find({
+          _id: { $in: user.bookings }
+        });
+
+        cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
+        cursor = cursor.limit(limit);
+
+        return {
+          ...data,
+          total: await cursor.count(),
+          results: await cursor.toArray()
+        };
+      } catch (e) {
+        throw new Error(`Failed to query user bookings: ${e.message}`);
+      }
+    },
+    listings: async (
+      user: User,
+      { limit, page }: UserListingsArgs,
+      { db }: { db: Database }
+    ): Promise<UserListingsData> => {
+      try {
+        const data: UserListingsData = {
+          total: 0,
+          results: []
+        };
+
+        let cursor = await db.listings.find({
+          _id: { $in: user.listings }
+        });
+
+        cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
+        cursor = cursor.limit(limit);
+
+        return {
+          ...data,
+          total: await cursor.count(),
+          results: await cursor.toArray()
+        };
+      } catch (e) {
+        throw new Error(`Failed to query user listings: ${e.message}`);
+      }
+    }
   }
 };
 

@@ -356,7 +356,7 @@ const seed = async () => {
     console.log(`[info]: listings seeded: ${listings.length}`);
     console.log(`[info]: users seeded: ${users.length}`);
   } catch {
-    throw new Error('failed to seed the database.');
+    throw new Error('Failed to seed the database.');
   }
 };
 

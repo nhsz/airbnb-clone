@@ -32,7 +32,7 @@ const drop = async () => {
     console.log(' ');
     console.log('[info]: all collections have been dropped succesfully. 👌');
   } catch {
-    throw new Error('failed drop the collection.');
+    throw new Error('Failed drop the collection.');
   }
 };
 
