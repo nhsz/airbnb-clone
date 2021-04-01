@@ -1,8 +1,10 @@
 import { useQuery } from '@apollo/client';
+import { useToast } from '@chakra-ui/react';
 import { RouteComponentProps } from 'react-router-dom';
 import { USER, User as UserData, UserVariables } from '../../api/graphql/queries';
 import { LogIn_logIn as Viewer } from '../../api/types';
-import { UserProfile } from '../../components';
+import { UserProfile, UserProfileSkeleton } from '../../components';
+import { displayErrorNotification } from '../../utils';
 
 interface Props {
   viewer: Viewer;
@@ -13,7 +15,7 @@ interface MatchParams {
 }
 
 const User = ({ match, viewer }: Props & RouteComponentProps<MatchParams>) => {
-  console.log({ match });
+  const toast = useToast();
   const { params } = match;
   const { id } = params;
   const { data, loading, error } = useQuery<UserData, UserVariables>(USER, {
@@ -26,13 +28,18 @@ const User = ({ match, viewer }: Props & RouteComponentProps<MatchParams>) => {
   const viewerIsUser = viewer.id === id;
 
   return (
-    <div>
-      {error && <p>error</p>}
+    <>
+      {error &&
+        displayErrorNotification({
+          toast,
+          title: "Oops! We weren't able to verify you already log in.",
+          description: 'Please try again later.'
+        })}
 
-      {loading && <p>loading</p>}
+      {loading && <UserProfileSkeleton />}
 
       {user ? <UserProfile user={user} viewerIsUser={viewerIsUser} /> : null}
-    </div>
+    </>
   );
 };
 
