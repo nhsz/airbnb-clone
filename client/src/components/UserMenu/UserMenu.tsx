@@ -3,9 +3,9 @@ import { Avatar, Button, Menu, MenuButton, MenuItem, MenuList, useToast } from '
 import { FC } from 'react';
 import { HiOutlineLogout, HiOutlineUser } from 'react-icons/hi';
 import { Link, useHistory } from 'react-router-dom';
-import { LogOut as LogOutData, LOG_OUT } from '../../../lib/graphql/mutations';
-import { LogIn_logIn as Viewer } from '../../../lib/types';
-import { displayErrorNotification, displaySuccessNotification } from '../../../lib/utils';
+import { LogOut as LogOutData, LOG_OUT } from '../../api/graphql/mutations';
+import { LogIn_logIn as Viewer } from '../../api/types';
+import { displayErrorNotification, displaySuccessNotification } from '../../utils';
 
 interface Props {
   id: string;
@@ -50,4 +50,4 @@ const UserMenu: FC<Props> = ({ id, avatar, setViewer }) => {
   );
 };
 
-export default UserMenu;
+export { UserMenu };

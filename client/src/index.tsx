@@ -10,11 +10,11 @@ import { ChakraProvider, Stack, useToast } from '@chakra-ui/react';
 import { FC, StrictMode, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { LogIn as LogInData, LogInVariables, LOG_IN } from './api/graphql/mutations';
+import { LogIn_logIn as Viewer } from './api/types';
 import { Header, HeaderSkeleton } from './components';
-import { LogIn as LogInData, LogInVariables, LOG_IN } from './lib/graphql/mutations';
-import { LogIn_logIn as Viewer } from './lib/types';
-import { displayErrorNotification } from './lib/utils';
 import { Home, Host, Listing, Listings, Login, NotFound, User } from './pages';
+import { displayErrorNotification } from './utils';
 // import './styles/index.css';
 
 const httpLink = createHttpLink({

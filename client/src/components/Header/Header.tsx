@@ -2,8 +2,8 @@ import { Button, Flex, Icon, Stack, Text } from '@chakra-ui/react';
 import { FC } from 'react';
 import { HiOutlineHome } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
-import { LogIn_logIn as Viewer } from '../../lib/types';
-import UserMenu from './Menu/UserMenu';
+import { LogIn_logIn as Viewer } from '../../api/types';
+import { UserMenu } from '../../components';
 
 interface Props {
   viewer: Viewer;
@@ -46,12 +46,14 @@ const Header: FC<Props> = ({ viewer, setViewer }) => {
         </Stack>
 
         {viewer.id ? (
-          <UserMenu id={viewer.id} avatar={viewer.avatar} setViewer={setViewer} />
+          <Stack pl={12}>
+            <UserMenu id={viewer.id} avatar={viewer.avatar} setViewer={setViewer} />
+          </Stack>
         ) : (
           <Link to='/login'>
             <Button
               h={8}
-              mr={{ base: 2, sm: 8 }}
+              mr={2}
               fontSize='sm'
               border='1px'
               color='#fff'

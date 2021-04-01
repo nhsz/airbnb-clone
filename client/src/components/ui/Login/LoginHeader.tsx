@@ -5,7 +5,7 @@ interface Props {
   description: string;
 }
 
-const LoginHeader: FC<Props> = ({ description }: Props) => {
+const LoginHeader: FC<Props> = ({ description }) => {
   return (
     <Stack mb={12}>
       <Heading mb={2}>

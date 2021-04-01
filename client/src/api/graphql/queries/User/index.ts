@@ -13,4 +13,5 @@ const USER = gql`
   }
 `;
 
+export * from './__generated__/User';
 export { USER };

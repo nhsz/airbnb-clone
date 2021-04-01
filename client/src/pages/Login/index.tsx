@@ -1,19 +1,18 @@
 import { useApolloClient, useMutation } from '@apollo/client';
 import { Box as Layout, Spinner, Stack as Card, Stack, useToast } from '@chakra-ui/react';
-import { useEffect, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
-import { LoginButton, LoginFooter, LoginHeader } from '../../components/ui/';
-import { LogIn as LogInData, LogInVariables, LOG_IN } from '../../lib/graphql/mutations';
-import { AUTH_URL } from '../../lib/graphql/queries';
-import { AuthUrl as AuthUrlData } from '../../lib/graphql/queries/';
-import { LogIn_logIn as Viewer } from '../../lib/types';
-import { displayErrorNotification, displaySuccessNotification } from '../../lib/utils';
+import { LogIn as LogInData, LogInVariables, LOG_IN } from '../../api/graphql/mutations';
+import { AuthUrl as AuthUrlData, AUTH_URL } from '../../api/graphql/queries';
+import { LogIn_logIn as Viewer } from '../../api/types';
+import { LoginButton, LoginFooter, LoginHeader } from '../../components/';
+import { displayErrorNotification, displaySuccessNotification } from '../../utils';
 
 interface Props {
   setViewer: (viewer: Viewer) => void;
 }
 
-const Login = ({ setViewer }: Props) => {
+const Login: FC<Props> = ({ setViewer }) => {
   const client = useApolloClient();
   const toast = useToast();
   const [logIn, { data: logInData, loading: logInLoading, error: logInError }] = useMutation<
@@ -80,7 +79,7 @@ const Login = ({ setViewer }: Props) => {
       justifyContent='center'
       alignItems='center'
       h='100vh'
-      style={{ marginTop: '-5.5rem' }}
+      style={{ marginTop: '-5rem' }}
     >
       {logInLoading ? (
         <Spinner label='Logging in...' size='xl' color='#FF5A6B' thickness='4px' />
