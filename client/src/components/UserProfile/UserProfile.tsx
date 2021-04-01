@@ -1,10 +1,10 @@
 import { Avatar, Box as Layout, Button, Divider, Stack as Card, Stack } from '@chakra-ui/react';
 import { FC } from 'react';
-import { User_user as UserData } from '../../api/graphql/queries';
+import { User as UserData } from '../../api/graphql/queries';
 import { UserProfileAdditionalDetails, UserProfileDetails, UserProfileFooter } from '../UI';
 
 interface Props {
-  user: UserData;
+  user: UserData['user'];
 }
 
 const UserProfile: FC<Props> = ({ user }) => {
