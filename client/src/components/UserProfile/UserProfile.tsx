@@ -21,6 +21,7 @@ const UserProfile: FC<Props> = ({ user, viewerIsUser }) => {
     >
       <Card
         w={{ base: 'xs', sm: 'sm' }}
+        maxHeight={viewerIsUser ? 512 : 300}
         p={4}
         boxShadow='xs'
         borderRadius={2}

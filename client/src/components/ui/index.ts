@@ -1,4 +1,4 @@
-export * from './ErrorAlert';
+export * from './ErrorBanner';
 export * from './ListingDescription';
 export * from './ListingImage';
 export * from './LoadingSkeleton';

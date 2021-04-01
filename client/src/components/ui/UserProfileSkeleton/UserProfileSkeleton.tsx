@@ -19,6 +19,7 @@ const UserProfileSkeleton: FC = () => {
     >
       <Card
         w={{ base: 'xs', sm: 'sm' }}
+        maxHeight={512}
         p={4}
         boxShadow='xs'
         borderRadius={2}

@@ -1,10 +1,8 @@
 import { useQuery } from '@apollo/client';
-import { useToast } from '@chakra-ui/react';
 import { RouteComponentProps } from 'react-router-dom';
 import { USER, User as UserData, UserVariables } from '../../api/graphql/queries';
 import { LogIn_logIn as Viewer } from '../../api/types';
-import { UserProfile, UserProfileSkeleton } from '../../components';
-import { displayErrorNotification } from '../../utils';
+import { ErrorBanner, UserProfile, UserProfileSkeleton } from '../../components';
 
 interface Props {
   viewer: Viewer;
@@ -15,7 +13,6 @@ interface MatchParams {
 }
 
 const User = ({ match, viewer }: Props & RouteComponentProps<MatchParams>) => {
-  const toast = useToast();
   const { params } = match;
   const { id } = params;
   const { data, loading, error } = useQuery<UserData, UserVariables>(USER, {
@@ -27,20 +24,16 @@ const User = ({ match, viewer }: Props & RouteComponentProps<MatchParams>) => {
   const user = data ? data.user : null;
   const viewerIsUser = viewer.id === id;
 
-  return (
-    <>
-      {error &&
-        displayErrorNotification({
-          toast,
-          title: "Oops! We weren't able to verify you already log in.",
-          description: 'Please try again later.'
-        })}
-
-      {loading && <UserProfileSkeleton />}
-
-      {user ? <UserProfile user={user} viewerIsUser={viewerIsUser} /> : null}
-    </>
-  );
+  return error ? (
+    <ErrorBanner
+      title={`Oops! We weren't able to load this user profile data.`}
+      description='Please try again later.'
+    />
+  ) : loading ? (
+    <UserProfileSkeleton />
+  ) : user ? (
+    <UserProfile user={user} viewerIsUser={viewerIsUser} />
+  ) : null;
 };
 
 export { User };
