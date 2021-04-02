@@ -263,6 +263,7 @@ const listings: Listing[] = [
     rating: 5
   }
 ];
+
 const users: User[] = [
   {
     _id: '5d378db94e84753160e08b55',
