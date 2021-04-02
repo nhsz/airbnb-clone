@@ -19,6 +19,7 @@ const USER = gql`
             image
             address
             city
+            type
             price
             numberOfGuests
             numberOfBeds
@@ -37,6 +38,7 @@ const USER = gql`
           image
           address
           city
+          type
           price
           numberOfGuests
           numberOfBeds

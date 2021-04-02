@@ -14,6 +14,7 @@ export interface User_user_bookings_results_listing {
   image: string;
   address: string;
   city: string;
+  type: string;
   price: number;
   numberOfGuests: number;
   numberOfBeds: number;
@@ -42,6 +43,7 @@ export interface User_user_listings_results {
   image: string;
   address: string;
   city: string;
+  type: string;
   price: number;
   numberOfGuests: number;
   numberOfBeds: number;
