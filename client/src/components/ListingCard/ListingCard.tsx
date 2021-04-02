@@ -31,7 +31,7 @@ const ListingCard: FC<Props> = ({ id, title, image, address, city, type, price, 
       flexDirection='column'
       justifyContent='space-between'
       _hover={{
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+        boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)'
       }}
     >
       <Stack>
@@ -87,10 +87,10 @@ const ListingCard: FC<Props> = ({ id, title, image, address, city, type, price, 
                 {`$${formatListingPrice(price)}`}
               </span>
             </Text>
-            <Text fontSize='2xl' fontWeight='hairline' color='gray.500'>
+            <Text fontSize='2xl' fontWeight='hairline' color='gray.400'>
               /
             </Text>
-            <Text mt={1} fontWeight='light' color='gray.500'>
+            <Text mt={1} fontWeight='light' color='gray.400'>
               night
             </Text>
           </Flex>
