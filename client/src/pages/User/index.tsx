@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client';
+import { useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { USER, User as UserData, UserVariables } from '../../api/graphql/queries';
 import { LogIn_logIn as Viewer } from '../../api/types';
@@ -12,12 +13,20 @@ interface MatchParams {
   id: string;
 }
 
+const PAGE_LIMIT = 4;
+
 const User = ({ match, viewer }: Props & RouteComponentProps<MatchParams>) => {
-  const { params } = match;
-  const { id } = params;
+  const [listingsPage, setListingsPage] = useState(1);
+  const [bookingsPage, setBookingsPage] = useState(1);
+  const {
+    params: { id }
+  } = match;
   const { data, loading, error } = useQuery<UserData, UserVariables>(USER, {
     variables: {
-      id
+      id,
+      bookingsPage,
+      listingsPage,
+      limit: PAGE_LIMIT
     }
   });
 
@@ -37,7 +46,7 @@ const User = ({ match, viewer }: Props & RouteComponentProps<MatchParams>) => {
     return <UserProfileSkeleton />;
   }
 
-  return <>{user ? <UserProfile user={user} viewerIsUser={viewerIsUser} /> : null}</>;
+  return user ? <UserProfile user={user} viewerIsUser={viewerIsUser} /> : null;
 };
 
 export { User };
