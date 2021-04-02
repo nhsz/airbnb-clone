@@ -19,7 +19,7 @@
 - **API:** GraphQL Apollo Server
 - **DB:** MongoDB (using Atlas for cloud hosting)
 
-### Third-party APIs
+### Third-party APIs [WIP]
 
 - Google's Geocoding API
 - Stripe
@@ -28,12 +28,10 @@
 
 - User authentication with Google Sign-In and OAuth 2.0
 
-### Testing
+#### Testing users
 
-- Jest
-- React Testing Library
-
-### Hosting
-
-- **Images**: Cloudinary
-- **App**: Heroku
+- user id: 5d378db94e84753160e08b55
+- user id: 5d378db94e84753160e08b56
+- user id: 5d378db94e84753160e08b57
+- user id: 5d378db94e84753160e08b58
+- user id: 5d378db94e84753160e08b59
