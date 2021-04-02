@@ -24,16 +24,20 @@ const User = ({ match, viewer }: Props & RouteComponentProps<MatchParams>) => {
   const user = data ? data.user : null;
   const viewerIsUser = viewer.id === id;
 
-  return error ? (
-    <ErrorBanner
-      title={`Oops! We weren't able to load this user profile data.`}
-      description='Please try again later.'
-    />
-  ) : loading ? (
-    <UserProfileSkeleton />
-  ) : user ? (
-    <UserProfile user={user} viewerIsUser={viewerIsUser} />
-  ) : null;
+  if (error) {
+    return (
+      <ErrorBanner
+        title={`Oops! We weren't able to load this user profile data.`}
+        description='Please try again later.'
+      />
+    );
+  }
+
+  if (loading) {
+    return <UserProfileSkeleton />;
+  }
+
+  return <>{user ? <UserProfile user={user} viewerIsUser={viewerIsUser} /> : null}</>;
 };
 
 export { User };
