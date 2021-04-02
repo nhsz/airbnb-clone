@@ -34,7 +34,7 @@ const typeDefs = gql`
 
   type Listings {
     total: Int!
-    results: [Listings!]!
+    results: [Listing!]!
   }
 
   type Booking {
