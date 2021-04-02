@@ -9,18 +9,13 @@ const typeDefs = gql`
     didRequest: Boolean!
   }
 
-  enum ListingType {
-    APARTMENT
-    HOUSE
-  }
-
   type Listing {
     id: ID!
     title: String!
     description: String!
     image: String!
     host: User!
-    type: ListingType!
+    type: String!
     address: String!
     city: String!
     bookings(limit: Int!, page: Int!): Bookings
@@ -29,7 +24,7 @@ const typeDefs = gql`
     numberOfGuests: Int!
     numberOfBeds: Int!
     numberOfBaths: Int!
-    rating: Int!
+    rating: Float!
   }
 
   type Listings {

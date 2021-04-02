@@ -8,7 +8,7 @@ interface Viewer {
   didRequest: boolean;
 }
 
-type ListingType = 'Apartment' | 'House';
+type ListingType = 'APARTMENT' | 'HOUSE';
 
 interface BookingsIndexMonth {
   [key: string]: boolean;

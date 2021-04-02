@@ -5,6 +5,13 @@ import { ObjectId } from 'mongodb';
 import connectDB from '.';
 import { Listing, User } from '../lib/types';
 
+const getRandomRating = () => {
+  const precision = 100; // 2 decimals
+  return (
+    Math.floor(Math.random() * (5 * precision - 1 * precision) + 1 * precision) / (1 * precision)
+  );
+};
+
 const listings: Listing[] = [
   {
     _id: new ObjectId('5d378db94e84753160e08b30'),
@@ -14,7 +21,7 @@ const listings: Listing[] = [
     image:
       'https://res.cloudinary.com/tiny-house/image/upload/v1560641352/mock/Toronto/toronto-listing-1_exv0tf.jpg',
     host: '5d378db94e84753160e08b57',
-    type: 'Apartment',
+    type: 'APARTMENT',
     address: '3210 Scotchmere Dr W, Toronto, ON, CA',
     country: 'Canada',
     city: 'Toronto',
@@ -24,7 +31,7 @@ const listings: Listing[] = [
     numberOfGuests: 2,
     numberOfBeds: 1,
     numberOfBaths: 2,
-    rating: 5
+    rating: getRandomRating()
   },
   {
     _id: new ObjectId('5d378db94e84753160e08f86'),
@@ -33,7 +40,7 @@ const listings: Listing[] = [
       'With a privileged location, in the Porto’s downtown historical center, you will be delighted by this apartment.',
     image: 'https://a0.muscache.com/im/pictures/9a343ee3-547f-46b9-a4a5-12b81142562d.jpg?im_w=1200',
     host: '5d378db94e84753160e08c63',
-    type: 'House',
+    type: 'HOUSE',
     address: 'Rua da Alegria 476, Porto, PT',
     country: 'Portugal',
     city: 'Porto',
@@ -43,7 +50,7 @@ const listings: Listing[] = [
     numberOfGuests: 4,
     numberOfBeds: 2,
     numberOfBaths: 1,
-    rating: 4
+    rating: getRandomRating()
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b40'),
@@ -53,7 +60,7 @@ const listings: Listing[] = [
     image:
       'https://res.cloudinary.com/tiny-house/image/upload/v1560645376/mock/Los%20Angeles/los-angeles-listing-1_aikhx7.jpg',
     host: '5d378db94e84753160e08b58',
-    type: 'House',
+    type: 'HOUSE',
     address: '100 Hollywood Hills Dr, Los Angeles, California',
     country: 'United States',
     city: 'Los Angeles',
@@ -63,7 +70,7 @@ const listings: Listing[] = [
     numberOfGuests: 2,
     numberOfBeds: 1,
     numberOfBaths: 1,
-    rating: 4
+    rating: getRandomRating()
   },
   {
     _id: new ObjectId('5d378db94e84753160e08e85'),
@@ -72,7 +79,7 @@ const listings: Listing[] = [
       'Amazing one-bedroom apartment with spectacular views of Palermo, the river and the city. Located in Palermo Soho on a 19th floor this 3-level apartment has everything you need to live a unique Buenos Aires experience.',
     image: 'https://a0.muscache.com/im/pictures/a554d5f6-e719-44d6-a730-bc19dbb967c8.jpg?im_w=1200',
     host: '5d378db94e84753160e08f41',
-    type: 'House',
+    type: 'HOUSE',
     address: 'Godoy Cruz 2351, Buenos Aires, AR',
     country: 'Argentina',
     city: 'Buenos Aires',
@@ -82,7 +89,7 @@ const listings: Listing[] = [
     numberOfGuests: 2,
     numberOfBeds: 1,
     numberOfBaths: 1,
-    rating: 5
+    rating: getRandomRating()
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b50'),
@@ -92,7 +99,7 @@ const listings: Listing[] = [
     image:
       'https://res.cloudinary.com/tiny-house/image/upload/v1560646219/mock/San%20Fransisco/san-fransisco-listing-1_qzntl4.jpg',
     host: '5d378db94e84753160e08b56',
-    type: 'Apartment',
+    type: 'APARTMENT',
     address: '200 Sunnyside Rd, San Fransisco, California, USA',
     country: 'United States',
     city: 'San Francisco',
@@ -102,7 +109,7 @@ const listings: Listing[] = [
     numberOfGuests: 5,
     numberOfBeds: 2,
     numberOfBaths: 2,
-    rating: 4
+    rating: getRandomRating()
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b53'),
@@ -112,7 +119,7 @@ const listings: Listing[] = [
     image:
       'https://res.cloudinary.com/tiny-house/image/upload/v1560646430/mock/Cancun/cancun-listing-1_zihihs.jpg',
     host: '5d378db94e84753160e08b56',
-    type: 'House',
+    type: 'HOUSE',
     address: '100 Punta Nizuc Rd., Cancún, Mexico',
     country: 'Mexico',
     city: 'Cancún',
@@ -122,7 +129,7 @@ const listings: Listing[] = [
     numberOfGuests: 5,
     numberOfBeds: 2,
     numberOfBaths: 2,
-    rating: 4
+    rating: getRandomRating()
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b54'),
@@ -132,7 +139,7 @@ const listings: Listing[] = [
     image:
       'https://res.cloudinary.com/tiny-house/image/upload/v1560646289/mock/Cancun/cancun-listing-2_bsocu5.jpg',
     host: '5d378db94e84753160e08b56',
-    type: 'Apartment',
+    type: 'APARTMENT',
     address: '100 Punta Nizuc Rd., Cancún, Mexico',
     country: 'Mexico',
     city: 'Cancún',
@@ -142,7 +149,7 @@ const listings: Listing[] = [
     numberOfGuests: 3,
     numberOfBeds: 2,
     numberOfBaths: 2,
-    rating: 4
+    rating: getRandomRating()
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b48'),
@@ -152,7 +159,7 @@ const listings: Listing[] = [
     image:
       'https://res.cloudinary.com/tiny-house/image/upload/v1560645408/mock/London/london-listing-1_yedylx.jpg',
     host: '5d378db94e84753160e08b57',
-    type: 'Apartment',
+    type: 'APARTMENT',
     address: '3807 North Bend River Rd, London, United Kingdom',
     country: 'United Kingdom',
     city: 'London',
@@ -162,7 +169,7 @@ const listings: Listing[] = [
     numberOfGuests: 3,
     numberOfBeds: 2,
     numberOfBaths: 2,
-    rating: 4
+    rating: getRandomRating()
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b49'),
@@ -172,7 +179,7 @@ const listings: Listing[] = [
     image:
       'https://res.cloudinary.com/tiny-house/image/upload/v1560645409/mock/London/london-listing-2_mtfogm.jpg',
     host: '5d378db94e84753160e08b59',
-    type: 'Apartment',
+    type: 'APARTMENT',
     address: '1738 Old House Dr, London, United Kingdom',
     country: 'United Kingdom',
     city: 'London',
@@ -182,7 +189,7 @@ const listings: Listing[] = [
     numberOfGuests: 3,
     numberOfBeds: 2,
     numberOfBaths: 2,
-    rating: 4
+    rating: getRandomRating()
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b31'),
@@ -192,7 +199,7 @@ const listings: Listing[] = [
     image:
       'https://res.cloudinary.com/tiny-house/image/upload/v1560641351/mock/Toronto/toronto-listing-2_aeg1rw.jpg',
     host: '5d378db94e84753160e08b55',
-    type: 'Apartment',
+    type: 'APARTMENT',
     address: '7009 Strawberry Street, Toronto, ON, CA',
     country: 'Canada',
     city: 'Toronto',
@@ -202,7 +209,7 @@ const listings: Listing[] = [
     numberOfGuests: 2,
     numberOfBeds: 2,
     numberOfBaths: 1,
-    rating: 3
+    rating: getRandomRating()
   },
   {
     _id: new ObjectId('5d378db94e84753160e08b32'),
@@ -212,7 +219,7 @@ const listings: Listing[] = [
     image:
       'https://res.cloudinary.com/tiny-house/image/upload/v1560641352/mock/Toronto/toronto-listing-3_eyftou.jpg',
     host: '5d378db94e84753160e08b57',
-    type: 'House',
+    type: 'HOUSE',
     address: '8110 Rockaway Ave, Toronto, ON, CA',
     country: 'Canada',
     city: 'Toronto',
@@ -222,7 +229,7 @@ const listings: Listing[] = [
     numberOfGuests: 4,
     numberOfBeds: 2,
     numberOfBaths: 2,
-    rating: 4
+    rating: getRandomRating()
   },
   {
     _id: new ObjectId('5d378db94e84753160e07a33'),
@@ -231,7 +238,7 @@ const listings: Listing[] = [
       'One-bedroom apartment in neoclassical building, furnished and equipped of aprox. 35m² in the "Barri Gòtic" of Barcelona. With a double room, living room, kitchen with dining area and bathroom.',
     image: 'https://a0.muscache.com/im/pictures/ff3e097e-2e36-4abb-917f-a815da546673.jpg?im_w=1200',
     host: '5d378db94e84753160e08b55',
-    type: 'Apartment',
+    type: 'APARTMENT',
     address: '9 Baixada de Sant Miquel, Barcelona, Spain',
     country: 'Spain',
     city: 'Barcelona',
@@ -241,7 +248,7 @@ const listings: Listing[] = [
     numberOfGuests: 2,
     numberOfBeds: 1,
     numberOfBaths: 1,
-    rating: 4
+    rating: getRandomRating()
   },
   {
     _id: new ObjectId('5d378db94e84753160e06f44'),
@@ -250,7 +257,7 @@ const listings: Listing[] = [
       'Your window situated right on the Canal. Located in the very centre of classic canal district, lovely designed with eye for detail, we offer a relaxing haven in the midst of the city centre.',
     image: 'https://a0.muscache.com/im/pictures/adbe755c-de28-423b-85db-c275b04b2b13.jpg?im_w=1200',
     host: '5d378db94e84753160e08b56',
-    type: 'House',
+    type: 'HOUSE',
     address: '79 Laurierstraat, Amsterdam, Netherlands',
     country: 'Netherlands',
     city: 'Amsterdam',
@@ -260,7 +267,7 @@ const listings: Listing[] = [
     numberOfGuests: 4,
     numberOfBeds: 2,
     numberOfBaths: 1,
-    rating: 5
+    rating: getRandomRating()
   }
 ];
 
