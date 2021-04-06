@@ -4,7 +4,13 @@ import { useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { USER, User as UserData, UserVariables } from '../../api/graphql/queries';
 import { LogIn_logIn as Viewer } from '../../api/types';
-import { ErrorBanner, UserListings, UserProfile, UserProfileSkeleton } from '../../components';
+import {
+  ErrorBanner,
+  UserBookings,
+  UserListings,
+  UserProfile,
+  UserProfileSkeleton
+} from '../../components';
 
 interface Props {
   viewer: Viewer;
@@ -37,8 +43,6 @@ const User = ({ match, viewer }: Props & RouteComponentProps<MatchParams>) => {
   const userListings = user ? user.listings : null;
   const userBookings = user ? user.bookings : null;
 
-  console.log({ data });
-
   if (error) {
     return (
       <ErrorBanner
@@ -70,7 +74,7 @@ const User = ({ match, viewer }: Props & RouteComponentProps<MatchParams>) => {
           )}
         </Stack>
 
-        {/* <Stack>
+        <Stack>
           {userBookings && (
             <UserBookings
               userBookings={userBookings}
@@ -79,7 +83,7 @@ const User = ({ match, viewer }: Props & RouteComponentProps<MatchParams>) => {
               setBookingsPage={setBookingsPage}
             />
           )}
-        </Stack> */}
+        </Stack>
       </Stack>
     </Stack>
   ) : null;
