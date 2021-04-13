@@ -6,9 +6,10 @@ import { UserProfileAdditionalDetails, UserProfileDetails, UserProfileFooter } f
 interface Props {
   user: UserData['user'];
   viewerIsUser: boolean;
+  loading: boolean;
 }
 
-const UserProfile: FC<Props> = ({ user, viewerIsUser }) => {
+const UserProfile: FC<Props> = ({ user, viewerIsUser, loading }) => {
   const { name, avatar, email } = user;
 
   return (
@@ -28,13 +29,13 @@ const UserProfile: FC<Props> = ({ user, viewerIsUser }) => {
         mt={{ base: 12, sm: 0 }}
       >
         <Stack d='flex' justifyContent='center' alignItems='center' mb={2}>
-          <Avatar size='xl' src={avatar} />
+          <Avatar size='xl' src={loading ? 'loading' : avatar} />
         </Stack>
 
         <Divider mb={4} />
 
         <Stack mb={viewerIsUser ? 10 : 4}>
-          <UserProfileDetails name={name} email={email} />
+          <UserProfileDetails name={name} email={email} loading={loading} />
         </Stack>
 
         {viewerIsUser && (

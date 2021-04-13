@@ -4,13 +4,7 @@ import { useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { USER, User as UserData, UserVariables } from '../../api/graphql/queries';
 import { LogIn_logIn as Viewer } from '../../api/types';
-import {
-  ErrorBanner,
-  UserBookings,
-  UserListings,
-  UserProfile,
-  UserProfileSkeleton
-} from '../../components';
+import { ErrorBanner, UserBookings, UserListings, UserProfile } from '../../components';
 
 interface Props {
   viewer: Viewer;
@@ -52,14 +46,10 @@ const User = ({ match, viewer }: Props & RouteComponentProps<MatchParams>) => {
     );
   }
 
-  if (loading) {
-    return <UserProfileSkeleton />;
-  }
-
   return user ? (
     <Stack p={7}>
       <Stack mb={24}>
-        <UserProfile user={user} viewerIsUser={viewerIsUser} />
+        <UserProfile loading={loading} user={user} viewerIsUser={viewerIsUser} />
       </Stack>
 
       <Stack>
