@@ -14,7 +14,7 @@ interface MatchParams {
   id: string;
 }
 
-const PAGE_LIMIT = 4;
+const PAGE_LIMIT = 8;
 
 const User = ({ match, viewer }: Props & RouteComponentProps<MatchParams>) => {
   const [listingsPage, setListingsPage] = useState(1);

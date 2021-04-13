@@ -28,7 +28,7 @@ const UserProfile: FC<Props> = ({ user, viewerIsUser, loading }) => {
         borderRadius={2}
         mt={{ base: 12, sm: 0 }}
       >
-        <Stack d='flex' justifyContent='center' alignItems='center' mb={2}>
+        <Stack justifyContent='center' alignItems='center' mb={2}>
           <Avatar size='xl' src={loading ? 'loading' : avatar} />
         </Stack>
 

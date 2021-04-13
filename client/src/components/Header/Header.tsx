@@ -35,7 +35,7 @@ const Header: FC<Props> = ({ viewer, setViewer }) => {
         </svg>
       </Link>
 
-      <Stack direction='row' d='flex' alignItems='center'>
+      <Stack direction='row' alignItems='center'>
         <Stack mr={{ base: 4, sm: 10 }}>
           <Link to='/host'>
             <Text color='gray.500' fontWeight={500} fontSize='sm' _hover={{ color: '#FF5A6B' }}>
