@@ -65,14 +65,12 @@ const User = ({ match, viewer }: Props & RouteComponentProps<MatchParams>) => {
         </Stack>
 
         <Stack>
-          {userBookings && (
-            <UserBookings
-              userBookings={userBookings}
-              bookingsPage={bookingsPage}
-              limit={PAGE_LIMIT}
-              setBookingsPage={setBookingsPage}
-            />
-          )}
+          <UserBookings
+            userBookings={userBookings}
+            bookingsPage={bookingsPage}
+            limit={PAGE_LIMIT}
+            setBookingsPage={setBookingsPage}
+          />
         </Stack>
       </Stack>
     </Stack>

@@ -56,7 +56,7 @@ const BaseCard: FC<Props> = ({ ...props }) => {
             fill={fillColor}
             fontSize='2xl'
             cursor='pointer'
-            onClick={() => setFillColor('red.400')}
+            onClick={() => setFillColor(color => (color === 'red.400' ? 'gray.600' : 'red.400'))}
           />
         </Box>
 
