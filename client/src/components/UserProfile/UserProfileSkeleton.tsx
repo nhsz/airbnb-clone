@@ -1,16 +1,12 @@
 import { Avatar, Box as Layout, Button, Divider, Stack as Card, Stack } from '@chakra-ui/react';
 import { FC } from 'react';
-import { User as UserData } from '../../api/graphql/queries';
 import { UserProfileAdditionalDetails, UserProfileDetails, UserProfileFooter } from '../UI';
 
 interface Props {
-  user: UserData['user'];
   viewerIsUser: boolean;
 }
 
-const UserProfile: FC<Props> = ({ user, viewerIsUser }) => {
-  const { name, avatar, email } = user;
-
+const UserProfileSkeleton: FC<Props> = ({ viewerIsUser }) => {
   return (
     <Layout
       d='flex'
@@ -28,13 +24,13 @@ const UserProfile: FC<Props> = ({ user, viewerIsUser }) => {
         mt={{ base: 12, sm: 0 }}
       >
         <Stack justifyContent='center' alignItems='center' mb={2}>
-          <Avatar size='xl' src={avatar} />
+          <Avatar size='xl' src={'dummy-avatar'} />
         </Stack>
 
         <Divider mb={4} />
 
         <Stack mb={viewerIsUser ? 10 : 4}>
-          <UserProfileDetails name={name} email={email} />
+          <UserProfileDetails name='loading...' email='loading...' />
         </Stack>
 
         {viewerIsUser && (
@@ -70,4 +66,4 @@ const UserProfile: FC<Props> = ({ user, viewerIsUser }) => {
   );
 };
 
-export { UserProfile };
+export { UserProfileSkeleton };

@@ -4,7 +4,7 @@ import { FC } from 'react';
 interface Props {
   name: string;
   email: string;
-  loading: boolean;
+  loading?: boolean;
 }
 
 const UserProfileDetails: FC<Props> = ({ name, email, loading }) => {
