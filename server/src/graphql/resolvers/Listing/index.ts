@@ -66,7 +66,7 @@ const listingResolvers: IResolvers = {
           results: await cursor.toArray()
         };
       } catch (e) {
-        throw new Error(`Failed to query user bookings: ${e.message}`);
+        throw new Error(`Failed to query listing bookings: ${e.message}`);
       }
     }
   }

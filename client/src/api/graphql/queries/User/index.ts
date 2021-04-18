@@ -21,9 +21,6 @@ const USER = gql`
             city
             type
             price
-            numberOfGuests
-            numberOfBeds
-            numberOfBaths
             rating
           }
           checkIn
@@ -40,9 +37,6 @@ const USER = gql`
           city
           type
           price
-          numberOfGuests
-          numberOfBeds
-          numberOfBaths
           rating
         }
       }

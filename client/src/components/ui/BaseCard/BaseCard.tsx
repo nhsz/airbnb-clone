@@ -12,9 +12,6 @@ interface Props {
   city: string;
   type: string;
   price: number;
-  // numberOfGuests: number;
-  // numberOfBeds: number;
-  // numberOfBaths: number;
   rating: number;
   checkIn?: string;
   checkOut?: string;
