@@ -38,5 +38,5 @@ const LISTING = gql`
   }
 `;
 
-// export * from './__generated__/AuthUrl';
+export * from './__generated__/Listing';
 export { LISTING };

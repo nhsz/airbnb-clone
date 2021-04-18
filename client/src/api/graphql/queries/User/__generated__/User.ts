@@ -16,9 +16,6 @@ export interface User_user_bookings_results_listing {
   city: string;
   type: string;
   price: number;
-  numberOfGuests: number;
-  numberOfBeds: number;
-  numberOfBaths: number;
   rating: number;
 }
 
@@ -45,9 +42,6 @@ export interface User_user_listings_results {
   city: string;
   type: string;
   price: number;
-  numberOfGuests: number;
-  numberOfBeds: number;
-  numberOfBaths: number;
   rating: number;
 }
 
