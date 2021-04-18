@@ -3,7 +3,7 @@ import { Request } from 'express';
 import { ObjectId } from 'mongodb';
 import { Database, Listing, User } from '../../../lib/types';
 import { authorize } from '../Viewer/utils';
-import { ListingArgs } from './types';
+import { ListingArgs, ListingBookingsArgs, ListingBookingsData } from './types';
 
 const listingResolvers: IResolvers = {
   Query: {
@@ -39,7 +39,36 @@ const listingResolvers: IResolvers = {
 
       return host;
     },
-    bookingsIndex: (listing: Listing) => JSON.stringify(listing.bookingsIndex)
+    bookingsIndex: (listing: Listing) => JSON.stringify(listing.bookingsIndex),
+    bookings: async (
+      listing: Listing,
+      { limit, page }: ListingBookingsArgs,
+      { db }: { db: Database }
+    ): Promise<ListingBookingsData | null> => {
+      try {
+        if (!listing.authorized) return null;
+
+        const data: ListingBookingsData = {
+          total: 0,
+          results: []
+        };
+
+        let cursor = await db.bookings.find({
+          _id: { $in: listing.bookings }
+        });
+
+        cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
+        cursor = cursor.limit(limit);
+
+        return {
+          ...data,
+          total: await cursor.count(),
+          results: await cursor.toArray()
+        };
+      } catch (e) {
+        throw new Error(`Failed to query user bookings: ${e.message}`);
+      }
+    }
   }
 };
 
