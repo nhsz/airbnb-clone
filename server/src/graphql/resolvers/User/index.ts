@@ -28,7 +28,7 @@ const userResolvers: IResolvers = {
 
         return user;
       } catch (e) {
-        throw new Error(`Failed to query user: ${e.message}`);
+        `Failed to query user: ${e.message}`;
       }
     }
   },

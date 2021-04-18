@@ -46,7 +46,7 @@ interface Listing {
   title: string;
   description: string;
   image: string;
-  host: string; // 1-to-1 relationship with a user (a listing can only have 1 host)
+  host: string; // host id, 1-to-1 relationship with a user (a listing can only have 1 host)
   type: ListingType;
   address: string;
   country: string;
@@ -58,6 +58,7 @@ interface Listing {
   numberOfBeds: number;
   numberOfBaths: number;
   rating: number;
+  authorized?: boolean;
 }
 
 interface User {
